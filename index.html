@@ -182,6 +182,9 @@
       .add(onEndQuiz);
 
     survey.locale = 'ru';
+    const myLoc = Survey.surveyLocalization.locales["ru"];
+    myLoc.completingSurvey = 'Вы успешно прошли это испытание!';// позже после прохождения теста уже не меняется
+
     $('#surveyElement').Survey({model: survey});
 
     function onEndQuiz(result) {
@@ -196,11 +199,9 @@
           pros++;
         }
       }
-      console.log(result.data);
-      console.log(advices);
+      //console.log(result.data);
 
       const positive = Math.round(100 * pros / steps.length);
-      console.log(positive)
 
       let classResultLevel;
       if (positive < 25) {
@@ -219,7 +220,7 @@
         classResultLevel = '.very-high-result';
 
       }
-      console.log(classResultLevel);
+
       $(classResultLevel).show();
       $('.percent-result').text(positive);
       $('.after-quiz').show();
