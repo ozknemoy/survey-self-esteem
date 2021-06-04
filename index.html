@@ -112,31 +112,27 @@
 </div>
 
 <script>
-  {
-    const Y = 'Да';
-    const N = 'Нет';
 
-    class RadioQuestionEntity {
-      choices = [Y, N];
-      type = 'radiogroup';
-      isRequired = true;
+  /*
+   * убрал let const class
+   * + в сафари не работал блок {}
+   * ie11 так и не заработал
+  */
+    var Y = 'Да';
+    var N = 'Нет';
 
-      constructor(name, title) {
-        this.name = name;
-        this.title = title;
-      }
+    function RadioQuestionEntity (name, title) {
+      this.name = name;
+      this.title = title;
+      this.choices = [Y, N];
+      this.type = 'radiogroup';
+      this.isRequired = true;
     }
 
 
-    const steps = [
-      {
-        question: 'Я перфекционист и любое дело для меня - это стресс',
-        advice: 'Я не обесцениваю свою работу, если она не идеальна'
-      },
-      {
-        question: 'Выступить перед аудиторией - огромный стресс',
-        advice: 'Перед аудиторией я чувствую себя так же, как при общении с одним человеком. Это открывает новые возможности'
-      },
+    var steps = [
+      {question: 'Я перфекционист и любое дело для меня - это стресс', advice: 'Я не обесцениваю свою работу, если она не идеальна'},
+      {question: 'Выступить перед аудиторией - огромный стресс', advice: 'Перед аудиторией я чувствую себя так же, как при общении с одним человеком. Это открывает новые возможности'},
       {question: 'Мне задали вопрос. Я не знаю ответа, я чувствую себя неловко и боюсь сказать, что не знаю', advice: 'Я спрашиваю, когда чего-то не знаю. Так я быстро решаю проблемы и развиваюсь.'},
       {question: 'Мне трудно признаться, когда я что-то не понял. Я редко задаю уточняющие вопросы', advice: 'Я уточняю, если что-то не понял. Поэтому я в теме беседы. Это помогает мне совершенствоваться'},
       {question: 'Мне неудобно просить о возврате долга или одолженной вещи', advice: 'Я не стесняюсь требовать свои деньги/вещи и тратить своё драгоценное время на обдумывание ситуации невозврата'},
@@ -165,7 +161,7 @@
       .StylesManager
       .applyTheme('orange');
 
-    const pages = steps.map((step, i) => ({
+    var pages = steps.map((step, i) => ({
         questions: [new RadioQuestionEntity(i.toString(), step.question)]
       })
     );
@@ -182,16 +178,16 @@
       .add(onEndQuiz);
 
     survey.locale = 'ru';
-    const myLoc = Survey.surveyLocalization.locales["ru"];
+    var myLoc = Survey.surveyLocalization.locales["ru"];
     myLoc.completingSurvey = 'Вы успешно прошли это испытание!';// позже после прохождения теста уже не меняется
 
     $('#surveyElement').Survey({model: survey});
 
     function onEndQuiz(result) {
-      const advices = [];
-      let pros = 0;
-      let cons = 0;
-      for (const key in result.data) {
+      var advices = [];
+      var pros = 0;
+      var cons = 0;
+      for (var key in result.data) {
         if (result.data[key] === Y) {
           cons++;
           advices.push(steps[key].advice);
@@ -201,9 +197,9 @@
       }
       //console.log(result.data);
 
-      const positive = Math.round(100 * pros / steps.length);
+      var positive = Math.round(100 * pros / steps.length);
 
-      let classResultLevel;
+      var classResultLevel;
       if (positive < 25) {
         classResultLevel = '.very-low-result';
 
@@ -229,18 +225,16 @@
 
     function createAdviseList(advices) {
       if (advices.length) {
-        const $adviceList = $('<ul></ul>').addClass('advice-list').insertAfter('.advices-header');
+        var $adviceList = $('<ul></ul>').addClass('advice-list').insertAfter('.advices-header');
         advices.forEach(advice => {
           $(`<li>${advice}</li>`)
             .addClass('advice-list-item')
             .appendTo($adviceList);
         })
-
-
         $('#advices').removeClass('none');
       }
     }
-  }
+
 
 </script>
 
