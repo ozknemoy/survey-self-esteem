@@ -120,13 +120,17 @@
   */
   function yaMetrikaReachGoal(id) {
     try {
-      ym(76300564,'reachGoal', id)
+      yaCounter76300564.reachGoal(id)
     } catch (e) {
       console.error(e);
     }
   }
 
-  yaMetrikaReachGoal('start-quiz');
+  // чет с событиями намудрено в яндекс, поэтому тупо задержка
+  setTimeout(function() {
+      yaMetrikaReachGoal('start-quiz');
+  }, 10e3)
+
 
 
 
